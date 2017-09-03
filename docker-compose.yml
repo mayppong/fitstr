@@ -1,0 +1,52 @@
+version: "2"
+services:
+  postgres_test:
+    image: postgres:9.6
+    environment:
+      POSTGRES_DB: "fitstr_test"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+
+  postgres:
+    image: postgres:9.6
+    environment:
+      POSTGRES_DB: "fitstr_dev"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+
+  node:
+    image: "node:8-alpine"
+    command: "./node_modules/.bin/brunch build"
+    volumes:
+      - ./:/fitstr
+    working_dir: /fitstr/assets
+
+  # the main image, this is the application
+  web:
+    build:
+      context: ./
+      dockerfile: ./deployments/Dockerfile.dev
+    image: "fitstr:dev"
+    environment:
+      MIX_ENV: "dev"
+    command: sh -c "mix deps.get; mix phx.server"
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./:/fitstr
+    links:
+      - postgres
+
+  test:
+    build:
+      context: ./
+      dockerfile: ./deployments/Dockerfile.dev
+    image: "fitstr:dev"
+    volumes:
+      - ./:/fitstr
+    working_dir: /fitstr
+    environment:
+      MIX_ENV: "test"
+    command: sh -c "mix deps.get; mix test"
+    links:
+      - postgres_test

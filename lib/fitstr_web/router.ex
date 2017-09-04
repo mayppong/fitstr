@@ -13,6 +13,12 @@ defmodule FitstrWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/auth", FitstrWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+  end
+
   scope "/", FitstrWeb do
     pipe_through :browser # Use the default browser stack
 

@@ -27,6 +27,7 @@ services:
       context: ./
       dockerfile: ./deployments/Dockerfile.dev
     image: "fitstr:dev"
+    env_file: .env
     environment:
       MIX_ENV: "dev"
     command: sh -c "mix deps.get; mix phx.server"
@@ -45,6 +46,7 @@ services:
     volumes:
       - ./:/fitstr
     working_dir: /fitstr
+    env_file: .env
     environment:
       MIX_ENV: "test"
     command: sh -c "mix deps.get; mix test"

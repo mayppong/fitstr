@@ -16,7 +16,7 @@ defmodule Fitstr.Accounts.User do
   def changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:handler, :email, :hashed_password])
-    |> validate_required([:handler, :email, :hashed_password])
+    |> validate_required([:email])
     |> unique_constraint(:handler)
     |> unique_constraint(:email)
   end

@@ -38,6 +38,19 @@ defmodule Fitstr.Accounts do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
+  Gets a single user through key-value pair for lookup.
+
+  ## Examples
+
+      iex> get_user_by(email: "tester@example.com")
+      %User{}
+      iex> get_user_by(email: "not-user@example.com")
+      nil
+
+  """
+  def get_user_by(key), do: Repo.get_by(User, key)
+
+  @doc """
   Creates a user.
 
   ## Examples

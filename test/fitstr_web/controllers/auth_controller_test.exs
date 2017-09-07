@@ -20,4 +20,16 @@ defmodule FitstrWeb.AuthControllerTest do
     assert Enum.count(users) == 1
     assert get_flash(conn, :info) == "Thank you for signing in!"
   end
+
+  test "signs user out of the application", %{conn: conn} do
+    user = %{email: "tester@example.com"}
+    |> Accounts.create_user
+
+    conn = conn
+    |> assign(:current_user, user)
+    |> get("/auth/signout")
+    |> get("/")
+
+    assert Map.get(conn.assigns, :current_user, nil) == nil
+  end
 end

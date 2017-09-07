@@ -16,6 +16,7 @@ defmodule FitstrWeb.Router do
   scope "/auth", FitstrWeb do
     pipe_through :browser
 
+    get "/signout", AuthController, :delete
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :new
   end

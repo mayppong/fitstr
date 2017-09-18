@@ -13,18 +13,26 @@ defmodule FitstrWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/auth", FitstrWeb do
-    pipe_through :browser
-
-    get "/signout", AuthController, :delete
-    get "/:provider", AuthController, :request
-    get "/:provider/callback", AuthController, :new
-  end
-
+  # public pages
   scope "/", FitstrWeb do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
+    scope "/auth" do
+      pipe_through :browser
+
+      get "/signout", AuthController, :delete
+      get "/:provider", AuthController, :request
+      get "/:provider/callback", AuthController, :new
+    end
+  end
+
+  # users only pages
+  scope "/", FitstrWeb do
+    pipe_through [:browser]
+
+    get "/auth/signout", AuthController, :delete
     resources "/users", UserController
   end
 

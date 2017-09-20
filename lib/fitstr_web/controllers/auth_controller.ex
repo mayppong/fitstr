@@ -14,7 +14,7 @@ defmodule FitstrWeb.AuthController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Thank you for signing in!")
-        |> put_session(:current_user, user)
+        |> FitstrWeb.Plugs.Auth.sign_in(user)
         |> redirect(to: page_path(conn, :index))
       {:error, reason} ->
         conn

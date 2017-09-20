@@ -30,7 +30,7 @@ defmodule FitstrWeb.Router do
 
   # users only pages
   scope "/", FitstrWeb do
-    pipe_through [:browser]
+    pipe_through [:browser, FitstrWeb.Plugs.Auth]
 
     get "/auth/signout", AuthController, :delete
     resources "/users", UserController

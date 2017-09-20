@@ -33,6 +33,7 @@ defmodule FitstrWeb.UserControllerTest do
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == user_path(conn, :show, id)
 
+      conn = conn |> recycle
       conn = get conn, user_path(conn, :show, id)
       assert html_response(conn, 200) =~ "Show User"
     end
@@ -59,6 +60,7 @@ defmodule FitstrWeb.UserControllerTest do
       conn = put conn, user_path(conn, :update, user), user: @update_attrs
       assert redirected_to(conn) == user_path(conn, :show, user)
 
+      conn = conn |> recycle
       conn = get conn, user_path(conn, :show, user)
       assert html_response(conn, 200) =~ "some updated email"
     end
@@ -76,6 +78,7 @@ defmodule FitstrWeb.UserControllerTest do
       conn = delete conn, user_path(conn, :delete, user)
       assert redirected_to(conn) == user_path(conn, :index)
       assert_error_sent 404, fn ->
+        conn = conn |> recycle
         get conn, user_path(conn, :show, user)
       end
     end

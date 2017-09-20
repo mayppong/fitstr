@@ -15,6 +15,8 @@ defmodule FitstrWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  alias Fitstr.Accounts
+
   using do
     quote do
       # Import conveniences for testing with connections
@@ -23,6 +25,15 @@ defmodule FitstrWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint FitstrWeb.Endpoint
+
+      def init_session(conn), do: FitstrWeb.ConnCase.init_session()
+      def sign_in(conn, user \\ %Fitstr.Accounts.User{}) do
+        conn
+        |> init_session
+        |> FitstrWeb.Plugs.Auth.sign_in(user)
+      end
+
+      defoverridable [ init_session: 1, sign_in: 2 ]
     end
   end
 
@@ -32,7 +43,31 @@ defmodule FitstrWeb.ConnCase do
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Fitstr.Repo, {:shared, self()})
     end
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+
+    guest = Phoenix.ConnTest.build_conn()
+    |> FitstrWeb.ConnCase.init_session
+    conn = guest
+    |> FitstrWeb.Plugs.Auth.sign_in(%Accounts.User{})
+    {:ok, conn: conn, guest: guest}
   end
 
+  @doc """
+  """
+  @spec init_session() :: %Plug.Conn{}
+  @spec init_session(%Plug.Conn{}) :: %Plug.Conn{}
+  def init_session(), do: Phoenix.ConnTest.build_conn() |> init_session
+  def init_session(%Plug.Conn{} = conn) do
+    opts = Plug.Session.init(
+      store: :cookie,
+      key: "foobar",
+      encryption_salt: "encrypted cookie salt",
+      signing_salt: "signing salt",
+      log: false,
+      encrypt: false
+    )
+
+    conn
+    |> Plug.Session.call(opts)
+    |> Plug.Conn.fetch_session()
+  end
 end

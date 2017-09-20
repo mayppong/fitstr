@@ -30,7 +30,7 @@ services:
     env_file: .env
     environment:
       MIX_ENV: "dev"
-    command: sh -c "mix deps.get; mix phx.server"
+    command: "mix phx.server"
     ports:
       - "4000:4000"
     volumes:
@@ -49,6 +49,6 @@ services:
     env_file: .env
     environment:
       MIX_ENV: "test"
-    command: sh -c "mix deps.get; mix test"
+    command: "mix test"
     links:
       - postgres_test

@@ -51,4 +51,4 @@ services:
       MIX_ENV: "test"
     command: "mix test"
     links:
-      - postgres_test
+      - postgres_test:postgres

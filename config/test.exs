@@ -15,5 +15,5 @@ config :fitstr, Fitstr.Repo,
   username: "postgres",
   password: "postgres",
   database: "fitstr_test",
-  hostname: "postgres_test",
+  hostname: "postgres",
   pool: Ecto.Adapters.SQL.Sandbox

@@ -15,6 +15,7 @@ defmodule FitstrWeb.ConnCase do
 
   use ExUnit.CaseTemplate
 
+  alias Phoenix.ConnTest
   alias Fitstr.Accounts
 
   using do
@@ -26,14 +27,25 @@ defmodule FitstrWeb.ConnCase do
       # The default endpoint for testing
       @endpoint FitstrWeb.Endpoint
 
-      def init_session(conn), do: FitstrWeb.ConnCase.init_session()
+      @doc """
+      A helper function for initializing a given test connection through the
+      app's endpoint plugs.
+      """
+      @spec through_endpoint(%Plug.Conn{}) :: %Plug.Conn{}
+      def through_endpoint(conn), do: conn |> FitstrWeb.ConnCase.through_endpoint()
+
+      @doc """
+      A helper function for authenticating a given test connection with the
+      specified user.
+      """
+      @spec sign_in(%Plug.Conn{}, %Fitstr.Accounts.User{}) :: %Plug.Conn{}
       def sign_in(conn, user \\ %Fitstr.Accounts.User{}) do
         conn
-        |> init_session
-        |> FitstrWeb.Plugs.Auth.sign_in(user)
+        |> through_endpoint
+        |> FitstrWeb.ConnCase.sign_in(user)
       end
 
-      defoverridable [ init_session: 1, sign_in: 2 ]
+      defoverridable [ through_endpoint: 1, sign_in: 2 ]
     end
   end
 
@@ -45,29 +57,42 @@ defmodule FitstrWeb.ConnCase do
     end
 
     guest = Phoenix.ConnTest.build_conn()
-    |> FitstrWeb.ConnCase.init_session
+    |> through_endpoint
     conn = guest
-    |> FitstrWeb.Plugs.Auth.sign_in(%Accounts.User{})
+    |> sign_in
     {:ok, conn: conn, guest: guest}
   end
 
   @doc """
+  Push given connection through app's endpoint to invoke the plugs defined.
   """
-  @spec init_session() :: %Plug.Conn{}
-  @spec init_session(%Plug.Conn{}) :: %Plug.Conn{}
-  def init_session(), do: Phoenix.ConnTest.build_conn() |> init_session
-  def init_session(%Plug.Conn{} = conn) do
-    opts = Plug.Session.init(
-      store: :cookie,
-      key: "foobar",
-      encryption_salt: "encrypted cookie salt",
-      signing_salt: "signing salt",
-      log: false,
-      encrypt: false
-    )
-
+  @spec through_endpoint() :: %Plug.Conn{}
+  @spec through_endpoint(%Plug.Conn{}) :: %Plug.Conn{}
+  def through_endpoint(), do: ConnTest.build_conn() |> through_endpoint
+  def through_endpoint(conn) do
     conn
-    |> Plug.Session.call(opts)
+    |> ConnTest.bypass_through()
+    |> ConnTest.dispatch(FitstrWeb.Endpoint, "get", "/")
     |> Plug.Conn.fetch_session()
+  end
+
+  @doc """
+  Authenticate a given connection with a given user.
+  If no user is given, make a new user
+  """
+  @spec sign_in(%Plug.Conn{}) :: %Plug.Conn{}
+  def sign_in(conn, user \\ %Accounts.User{}) do
+    conn
+    |> FitstrWeb.Plugs.Auth.sign_in(user)
+    |> recycle
+    |> ConnTest.dispatch(FitstrWeb.Endpoint, "get", "/")
+  end
+
+  # A helper function for recycling a connection that went through an
+  # authentication process.
+  defp recycle(conn) do
+    conn
+    |> Plug.Conn.send_resp(:ok, "")
+    |> ConnTest.recycle
   end
 end

@@ -1,7 +1,7 @@
-defmodule Fitstr.Exercises.Movement do
+defmodule Fitstr.Activities.Movement do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Fitstr.Exercises.Movement
+  alias Fitstr.Activities.Movement
 
 
   schema "movements" do

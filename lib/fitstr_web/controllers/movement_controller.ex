@@ -1,21 +1,21 @@
 defmodule FitstrWeb.MovementController do
   use FitstrWeb, :controller
 
-  alias Fitstr.Exercises
-  alias Fitstr.Exercises.Movement
+  alias Fitstr.Activities
+  alias Fitstr.Activities.Movement
 
   def index(conn, _params) do
-    movements = Exercises.list_movements()
+    movements = Activities.list_movements()
     render(conn, "index.html", movements: movements)
   end
 
   def new(conn, _params) do
-    changeset = Exercises.change_movement(%Movement{})
+    changeset = Activities.change_movement(%Movement{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"movement" => movement_params}) do
-    case Exercises.create_movement(movement_params) do
+    case Activities.create_movement(movement_params) do
       {:ok, movement} ->
         conn
         |> put_flash(:info, "Movement created successfully.")
@@ -26,20 +26,20 @@ defmodule FitstrWeb.MovementController do
   end
 
   def show(conn, %{"id" => id}) do
-    movement = Exercises.get_movement!(id)
+    movement = Activities.get_movement!(id)
     render(conn, "show.html", movement: movement)
   end
 
   def edit(conn, %{"id" => id}) do
-    movement = Exercises.get_movement!(id)
-    changeset = Exercises.change_movement(movement)
+    movement = Activities.get_movement!(id)
+    changeset = Activities.change_movement(movement)
     render(conn, "edit.html", movement: movement, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "movement" => movement_params}) do
-    movement = Exercises.get_movement!(id)
+    movement = Activities.get_movement!(id)
 
-    case Exercises.update_movement(movement, movement_params) do
+    case Activities.update_movement(movement, movement_params) do
       {:ok, movement} ->
         conn
         |> put_flash(:info, "Movement updated successfully.")
@@ -50,8 +50,8 @@ defmodule FitstrWeb.MovementController do
   end
 
   def delete(conn, %{"id" => id}) do
-    movement = Exercises.get_movement!(id)
-    {:ok, _movement} = Exercises.delete_movement(movement)
+    movement = Activities.get_movement!(id)
+    {:ok, _movement} = Activities.delete_movement(movement)
 
     conn
     |> put_flash(:info, "Movement deleted successfully.")

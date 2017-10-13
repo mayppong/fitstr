@@ -1,12 +1,12 @@
-defmodule Fitstr.Activities do
+defmodule Fitstr.Activities.Exercises do
   @moduledoc """
-  The Activities context.
+  The Activities.Exercises context.
   """
 
   import Ecto.Query, warn: false
   alias Fitstr.Repo
 
-  alias Fitstr.Activities.Movement
+  alias Fitstr.Activities.Exercises.Movement
 
   @doc """
   Returns the list of movements.

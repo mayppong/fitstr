@@ -1,14 +1,14 @@
 defmodule FitstrWeb.MovementControllerTest do
   use FitstrWeb.ConnCase
 
-  alias Fitstr.Activities
+  alias Fitstr.Activities.Exercises
 
   @create_attrs %{description: "some description", name: "some name"}
   @update_attrs %{description: "some updated description", name: "some updated name"}
   @invalid_attrs %{description: nil, name: nil}
 
   def fixture(:movement) do
-    {:ok, movement} = Activities.create_movement(@create_attrs)
+    {:ok, movement} = Exercises.create_movement(@create_attrs)
     movement
   end
 

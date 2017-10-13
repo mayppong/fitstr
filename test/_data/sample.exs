@@ -30,43 +30,20 @@
 #  ], ["Banded", "Chained"], []}
 #]
 
+# other activities
 [
-  {"weight_training", "Weight Training"},
-  {"olympic_lifting", "Olympic Lifting"},
-  {"power_lifting", "Power Lifting"},
-  {"gymnastic", "Gymnastic"},
-  {"calisthenic", "Calisthenic"},
-  {"aerobic", "Aerobic"}
+  {"Lifestyle", ["Sleep", "Hydrate", "Meditate"]},
+  {"Sport", ["Soccer", "Rugby", "Hockey"]},
+  {"Diet", []}
 ]
 
-# routine
-[
-  {%{name: "Cindy", time: 20}, [
-    %{name: "Pull up", repitition: 5},
-    %{name: "Push up", repitition: 10},
-    %{name: "Squat", repetition: 15}
-  ]},
-  {%{name: "Nurwor", round: 5}, [
-    %{name: "Run", distance: 500},
-    %{name: "Row", distance: 500}
-  ]},
-  {%{name: "Newspaper Boy"}, [
-    %{name: "Run", distance: 800},
-    {%{round: 5}, [ # need parent_id from Newspaper Boy
-      %{name: "Wallball", repetition: 10},
-      %{name: "Toes to Bar", repetition: 10},
-      %{name: "Power Clean", repetition: 10}
-    ]}
-  ]}
-]
-
-# record movement
+# journal movement
 [
   %{user_id: 1, movement: "Paused Power Clean", weight: 100, repetition: 5},
   %{user_id: 1, movement: "Squat Snatch", weight: 85, round: 3, repetition: 5}
 ]
 
-# record routine
+# journal workout
 [
   {%{user_id: 1, routine: "Cindy", round: 15, repetition: 12}, [
     %{user_id: 1, record_routine_id: 1, movement: "Pull up", repetition: 5},
@@ -81,4 +58,14 @@
       %{user_id: 1, record_routine_id: 3 movement: "Power Clean", repetition: 10},
     ]}
   ]}
+]
+
+# tagging for movements and exercises ?
+[
+  {"weight_training", "Weight Training"},
+  {"olympic_lifting", "Olympic Lifting"},
+  {"power_lifting", "Power Lifting"},
+  {"gymnastic", "Gymnastic"},
+  {"calisthenic", "Calisthenic"},
+  {"aerobic", "Aerobic"}
 ]

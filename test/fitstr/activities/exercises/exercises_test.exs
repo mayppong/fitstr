@@ -64,4 +64,72 @@ defmodule Fitstr.Activities.ExercisesTest do
       assert %Ecto.Changeset{} = Exercises.change_movement(movement)
     end
   end
+
+  describe "workouts" do
+    alias Fitstr.Activities.Exercises.Workout
+
+    @valid_attrs %{description: "some description", interval: "120.5", name: "some name", round: 42, time: "120.5"}
+    @update_attrs %{description: "some updated description", interval: "456.7", name: "some updated name", round: 43, time: "456.7"}
+    @invalid_attrs %{description: nil, interval: nil, name: nil, round: nil, time: nil}
+
+    def workout_fixture(attrs \\ %{}) do
+      {:ok, workout} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Exercises.create_workout()
+
+      workout
+    end
+
+    test "list_workouts/0 returns all workouts" do
+      workout = workout_fixture()
+      assert Exercises.list_workouts() == [workout]
+    end
+
+    test "get_workout!/1 returns the workout with given id" do
+      workout = workout_fixture()
+      assert Exercises.get_workout!(workout.id) == workout
+    end
+
+    test "create_workout/1 with valid data creates a workout" do
+      assert {:ok, %Workout{} = workout} = Exercises.create_workout(@valid_attrs)
+      assert workout.description == "some description"
+      assert workout.interval == Decimal.new("120.5")
+      assert workout.name == "some name"
+      assert workout.round == 42
+      assert workout.time == Decimal.new("120.5")
+    end
+
+    test "create_workout/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Exercises.create_workout(@invalid_attrs)
+    end
+
+    test "update_workout/2 with valid data updates the workout" do
+      workout = workout_fixture()
+      assert {:ok, workout} = Exercises.update_workout(workout, @update_attrs)
+      assert %Workout{} = workout
+      assert workout.description == "some updated description"
+      assert workout.interval == Decimal.new("456.7")
+      assert workout.name == "some updated name"
+      assert workout.round == 43
+      assert workout.time == Decimal.new("456.7")
+    end
+
+    test "update_workout/2 with invalid data returns error changeset" do
+      workout = workout_fixture()
+      assert {:error, %Ecto.Changeset{}} = Exercises.update_workout(workout, @invalid_attrs)
+      assert workout == Exercises.get_workout!(workout.id)
+    end
+
+    test "delete_workout/1 deletes the workout" do
+      workout = workout_fixture()
+      assert {:ok, %Workout{}} = Exercises.delete_workout(workout)
+      assert_raise Ecto.NoResultsError, fn -> Exercises.get_workout!(workout.id) end
+    end
+
+    test "change_workout/1 returns a workout changeset" do
+      workout = workout_fixture()
+      assert %Ecto.Changeset{} = Exercises.change_workout(workout)
+    end
+  end
 end

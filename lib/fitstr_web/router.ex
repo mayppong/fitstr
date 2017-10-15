@@ -36,6 +36,10 @@ defmodule FitstrWeb.Router do
     resources "/users", UserController
     resources "/movements", MovementController
     resources "/workouts", WorkoutController
+
+    scope "/journals", Journals, as: :journals do
+      resources "/journal_workouts", WorkoutController
+    end
   end
 
   # Other scopes may use custom stacks.

@@ -39,6 +39,7 @@ defmodule FitstrWeb.Router do
 
     scope "/journals", Journals, as: :journals do
       resources "/journal_workouts", WorkoutController
+      resources "/journal_movements", MovementController
     end
   end
 

@@ -14,5 +14,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: movement_path(@conn, :edit, @movement) %></span>
-<span><%= link "Back", to: movement_path(@conn, :index) %></span>
+<span><%= link "Edit", to: activities_exercises_movement_path(@conn, :edit, @movement) %></span>
+<span><%= link "Back", to: activities_exercises_movement_path(@conn, :index) %></span>

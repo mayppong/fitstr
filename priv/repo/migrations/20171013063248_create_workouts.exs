@@ -8,6 +8,7 @@ defmodule Fitstr.Repo.Migrations.CreateWorkouts do
       add :interval, :decimal
       add :round, :integer
       add :time, :decimal
+      add :note, :text
       add :parent_id, references(:workouts, on_delete: :nothing)
       add :creator_id, references(:users, on_delete: :nothing)
 

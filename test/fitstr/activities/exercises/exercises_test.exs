@@ -68,9 +68,9 @@ defmodule Fitstr.Activities.ExercisesTest do
   describe "workouts" do
     alias Fitstr.Activities.Exercises.Workout
 
-    @valid_attrs %{description: "some description", interval: "120.5", name: "some name", round: 42, time: "120.5"}
-    @update_attrs %{description: "some updated description", interval: "456.7", name: "some updated name", round: 43, time: "456.7"}
-    @invalid_attrs %{description: nil, interval: nil, name: nil, round: nil, time: nil}
+    @valid_attrs %{description: "some description", interval: "120.5", name: "some name", note: "some note", round: 42, time: "120.5"}
+    @update_attrs %{description: "some updated description", interval: "456.7", name: "some updated name", note: "some updated note", round: 43, time: "456.7"}
+    @invalid_attrs %{description: nil, interval: nil, name: nil, note: nil, round: nil, time: nil}
 
     def workout_fixture(attrs \\ %{}) do
       {:ok, workout} =
@@ -96,6 +96,7 @@ defmodule Fitstr.Activities.ExercisesTest do
       assert workout.description == "some description"
       assert workout.interval == Decimal.new("120.5")
       assert workout.name == "some name"
+      assert workout.note == "some note"
       assert workout.round == 42
       assert workout.time == Decimal.new("120.5")
     end
@@ -111,6 +112,7 @@ defmodule Fitstr.Activities.ExercisesTest do
       assert workout.description == "some updated description"
       assert workout.interval == Decimal.new("456.7")
       assert workout.name == "some updated name"
+      assert workout.note == "some updated note"
       assert workout.round == 43
       assert workout.time == Decimal.new("456.7")
     end

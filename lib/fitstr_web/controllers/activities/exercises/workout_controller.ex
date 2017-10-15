@@ -1,4 +1,4 @@
-defmodule FitstrWeb.WorkoutController do
+defmodule FitstrWeb.Activities.Exercises.WorkoutController do
   use FitstrWeb, :controller
 
   alias Fitstr.Activities.Exercises
@@ -19,7 +19,7 @@ defmodule FitstrWeb.WorkoutController do
       {:ok, workout} ->
         conn
         |> put_flash(:info, "Workout created successfully.")
-        |> redirect(to: workout_path(conn, :show, workout))
+        |> redirect(to: activities_exercises_workout_path(conn, :show, workout))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -43,7 +43,7 @@ defmodule FitstrWeb.WorkoutController do
       {:ok, workout} ->
         conn
         |> put_flash(:info, "Workout updated successfully.")
-        |> redirect(to: workout_path(conn, :show, workout))
+        |> redirect(to: activities_exercises_workout_path(conn, :show, workout))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", workout: workout, changeset: changeset)
     end
@@ -55,6 +55,6 @@ defmodule FitstrWeb.WorkoutController do
 
     conn
     |> put_flash(:info, "Workout deleted successfully.")
-    |> redirect(to: workout_path(conn, :index))
+    |> redirect(to: activities_exercises_workout_path(conn, :index))
   end
 end

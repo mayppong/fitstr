@@ -1,0 +1,43 @@
+<h2>Show Movement</h2>
+
+<ul>
+
+  <li>
+    <strong>Distance:</strong>
+    <%= @movement.distance %>
+  </li>
+
+  <li>
+    <strong>Energy:</strong>
+    <%= @movement.energy %>
+  </li>
+
+  <li>
+    <strong>Interval:</strong>
+    <%= @movement.interval %>
+  </li>
+
+  <li>
+    <strong>Repetition:</strong>
+    <%= @movement.repetition %>
+  </li>
+
+  <li>
+    <strong>Time:</strong>
+    <%= @movement.time %>
+  </li>
+
+  <li>
+    <strong>Weight:</strong>
+    <%= @movement.weight %>
+  </li>
+
+  <li>
+    <strong>Note:</strong>
+    <%= @movement.note %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: journals_movement_path(@conn, :edit, @movement) %></span>
+<span><%= link "Back", to: journals_movement_path(@conn, :index) %></span>

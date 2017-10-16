@@ -34,8 +34,17 @@ defmodule FitstrWeb.Router do
 
     get "/auth/signout", AuthController, :delete
     resources "/users", UserController
-    resources "/movements", MovementController
-    resources "/workouts", WorkoutController
+
+    scope "/activities", Activities, as: :activities do
+      scope "/exercises", Exercises, as: :exercises do
+        resources "/movements", MovementController
+        resources "/workouts", WorkoutController
+      end
+    end
+    scope "/journals", Journals, as: :journals do
+      resources "/journal_movements", MovementController
+      resources "/journal_workouts", WorkoutController
+    end
   end
 
   # Other scopes may use custom stacks.

@@ -1,5 +1,0 @@
-<h2>Edit Workout</h2>
-
-<%= render "form.html", Map.put(assigns, :action, workout_path(@conn, :update, @workout)) %>
-
-<span><%= link "Back", to: workout_path(@conn, :index) %></span>

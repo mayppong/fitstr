@@ -1,60 +1,60 @@
-defmodule FitstrWeb.WorkoutController do
+defmodule FitstrWeb.Journals.WorkoutController do
   use FitstrWeb, :controller
 
-  alias Fitstr.Activities.Exercises
-  alias Fitstr.Activities.Exercises.Workout
+  alias Fitstr.Journals
+  alias Fitstr.Journals.Workout
 
   def index(conn, _params) do
-    workouts = Exercises.list_workouts()
-    render(conn, "index.html", workouts: workouts)
+    journal_workouts = Journals.list_journal_workouts()
+    render(conn, "index.html", journal_workouts: journal_workouts)
   end
 
   def new(conn, _params) do
-    changeset = Exercises.change_workout(%Workout{})
+    changeset = Journals.change_workout(%Workout{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"workout" => workout_params}) do
-    case Exercises.create_workout(workout_params) do
+    case Journals.create_workout(workout_params) do
       {:ok, workout} ->
         conn
         |> put_flash(:info, "Workout created successfully.")
-        |> redirect(to: workout_path(conn, :show, workout))
+        |> redirect(to: journals_workout_path(conn, :show, workout))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    workout = Exercises.get_workout!(id)
+    workout = Journals.get_workout!(id)
     render(conn, "show.html", workout: workout)
   end
 
   def edit(conn, %{"id" => id}) do
-    workout = Exercises.get_workout!(id)
-    changeset = Exercises.change_workout(workout)
+    workout = Journals.get_workout!(id)
+    changeset = Journals.change_workout(workout)
     render(conn, "edit.html", workout: workout, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "workout" => workout_params}) do
-    workout = Exercises.get_workout!(id)
+    workout = Journals.get_workout!(id)
 
-    case Exercises.update_workout(workout, workout_params) do
+    case Journals.update_workout(workout, workout_params) do
       {:ok, workout} ->
         conn
         |> put_flash(:info, "Workout updated successfully.")
-        |> redirect(to: workout_path(conn, :show, workout))
+        |> redirect(to: journals_workout_path(conn, :show, workout))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", workout: workout, changeset: changeset)
     end
   end
 
   def delete(conn, %{"id" => id}) do
-    workout = Exercises.get_workout!(id)
-    {:ok, _workout} = Exercises.delete_workout(workout)
+    workout = Journals.get_workout!(id)
+    {:ok, _workout} = Journals.delete_workout(workout)
 
     conn
     |> put_flash(:info, "Workout deleted successfully.")
-    |> redirect(to: workout_path(conn, :index))
+    |> redirect(to: journals_workout_path(conn, :index))
   end
 end

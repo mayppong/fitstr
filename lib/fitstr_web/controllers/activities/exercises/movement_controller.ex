@@ -1,4 +1,4 @@
-defmodule FitstrWeb.MovementController do
+defmodule FitstrWeb.Activities.Exercises.MovementController do
   use FitstrWeb, :controller
 
   alias Fitstr.Activities.Exercises
@@ -19,7 +19,7 @@ defmodule FitstrWeb.MovementController do
       {:ok, movement} ->
         conn
         |> put_flash(:info, "Movement created successfully.")
-        |> redirect(to: movement_path(conn, :show, movement))
+        |> redirect(to: activities_exercises_movement_path(conn, :show, movement))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -43,7 +43,7 @@ defmodule FitstrWeb.MovementController do
       {:ok, movement} ->
         conn
         |> put_flash(:info, "Movement updated successfully.")
-        |> redirect(to: movement_path(conn, :show, movement))
+        |> redirect(to: activities_exercises_movement_path(conn, :show, movement))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", movement: movement, changeset: changeset)
     end
@@ -55,6 +55,6 @@ defmodule FitstrWeb.MovementController do
 
     conn
     |> put_flash(:info, "Movement deleted successfully.")
-    |> redirect(to: movement_path(conn, :index))
+    |> redirect(to: activities_exercises_movement_path(conn, :index))
   end
 end

@@ -197,4 +197,100 @@ defmodule Fitstr.Activities.Exercises do
   def change_workout(%Workout{} = workout) do
     Workout.changeset(workout, %{})
   end
+
+  alias Fitstr.Activities.Exercises.WorkoutMovement
+
+  @doc """
+  Returns the list of workout_movements.
+
+  ## Examples
+
+      iex> list_workout_movements()
+      [%WorkoutMovement{}, ...]
+
+  """
+  def list_workout_movements do
+    Repo.all(WorkoutMovement)
+  end
+
+  @doc """
+  Gets a single workout_movement.
+
+  Raises `Ecto.NoResultsError` if the Workout movement does not exist.
+
+  ## Examples
+
+      iex> get_workout_movement!(123)
+      %WorkoutMovement{}
+
+      iex> get_workout_movement!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_workout_movement!(id), do: Repo.get!(WorkoutMovement, id)
+
+  @doc """
+  Creates a workout_movement.
+
+  ## Examples
+
+      iex> create_workout_movement(%{field: value})
+      {:ok, %WorkoutMovement{}}
+
+      iex> create_workout_movement(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_workout_movement(attrs \\ %{}) do
+    %WorkoutMovement{}
+    |> WorkoutMovement.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a workout_movement.
+
+  ## Examples
+
+      iex> update_workout_movement(workout_movement, %{field: new_value})
+      {:ok, %WorkoutMovement{}}
+
+      iex> update_workout_movement(workout_movement, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_workout_movement(%WorkoutMovement{} = workout_movement, attrs) do
+    workout_movement
+    |> WorkoutMovement.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a WorkoutMovement.
+
+  ## Examples
+
+      iex> delete_workout_movement(workout_movement)
+      {:ok, %WorkoutMovement{}}
+
+      iex> delete_workout_movement(workout_movement)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_workout_movement(%WorkoutMovement{} = workout_movement) do
+    Repo.delete(workout_movement)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking workout_movement changes.
+
+  ## Examples
+
+      iex> change_workout_movement(workout_movement)
+      %Ecto.Changeset{source: %WorkoutMovement{}}
+
+  """
+  def change_workout_movement(%WorkoutMovement{} = workout_movement) do
+    WorkoutMovement.changeset(workout_movement, %{})
+  end
 end

@@ -8,6 +8,7 @@ defmodule Fitstr.Activities.Exercises.Workout do
     field :description, :string
     field :interval, :decimal
     field :name, :string
+    field :note, :string
     field :round, :integer
     field :time, :decimal
     field :parent_id, :id
@@ -19,7 +20,7 @@ defmodule Fitstr.Activities.Exercises.Workout do
   @doc false
   def changeset(%Workout{} = workout, attrs) do
     workout
-    |> cast(attrs, [:name, :description, :interval, :round, :time])
-    |> validate_required([:name, :description, :interval, :round, :time])
+    |> cast(attrs, [:name, :description, :interval, :round, :time, :note])
+    |> validate_required([:name, :description, :interval, :round, :time, :note])
   end
 end

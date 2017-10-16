@@ -1,11 +1,11 @@
-defmodule FitstrWeb.WorkoutControllerTest do
+defmodule FitstrWeb.Activities.Exercises.WorkoutControllerTest do
   use FitstrWeb.ConnCase
 
   alias Fitstr.Activities.Exercises
 
-  @create_attrs %{description: "some description", interval: "120.5", name: "some name", round: 42, time: "120.5"}
-  @update_attrs %{description: "some updated description", interval: "456.7", name: "some updated name", round: 43, time: "456.7"}
-  @invalid_attrs %{description: nil, interval: nil, name: nil, round: nil, time: nil}
+  @create_attrs %{description: "some description", interval: "120.5", name: "some name", note: "some note", round: 42, time: "120.5"}
+  @update_attrs %{description: "some updated description", interval: "456.7", name: "some updated name", note: "some updated note", round: 43, time: "456.7"}
+  @invalid_attrs %{description: nil, interval: nil, name: nil, note: nil, round: nil, time: nil}
 
   def fixture(:workout) do
     {:ok, workout} = Exercises.create_workout(@create_attrs)
@@ -14,31 +14,31 @@ defmodule FitstrWeb.WorkoutControllerTest do
 
   describe "index" do
     test "lists all workouts", %{conn: conn} do
-      conn = get conn, workout_path(conn, :index)
+      conn = get conn, activities_exercises_workout_path(conn, :index)
       assert html_response(conn, 200) =~ "Listing Workouts"
     end
   end
 
   describe "new workout" do
     test "renders form", %{conn: conn} do
-      conn = get conn, workout_path(conn, :new)
+      conn = get conn, activities_exercises_workout_path(conn, :new)
       assert html_response(conn, 200) =~ "New Workout"
     end
   end
 
   describe "create workout" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post conn, workout_path(conn, :create), workout: @create_attrs
+      conn = post conn, activities_exercises_workout_path(conn, :create), workout: @create_attrs
 
       assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == workout_path(conn, :show, id)
+      assert redirected_to(conn) == activities_exercises_workout_path(conn, :show, id)
 
-      conn = get conn, workout_path(conn, :show, id)
+      conn = get conn, activities_exercises_workout_path(conn, :show, id)
       assert html_response(conn, 200) =~ "Show Workout"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, workout_path(conn, :create), workout: @invalid_attrs
+      conn = post conn, activities_exercises_workout_path(conn, :create), workout: @invalid_attrs
       assert html_response(conn, 200) =~ "New Workout"
     end
   end
@@ -47,7 +47,7 @@ defmodule FitstrWeb.WorkoutControllerTest do
     setup [:create_workout]
 
     test "renders form for editing chosen workout", %{conn: conn, workout: workout} do
-      conn = get conn, workout_path(conn, :edit, workout)
+      conn = get conn, activities_exercises_workout_path(conn, :edit, workout)
       assert html_response(conn, 200) =~ "Edit Workout"
     end
   end
@@ -56,15 +56,15 @@ defmodule FitstrWeb.WorkoutControllerTest do
     setup [:create_workout]
 
     test "redirects when data is valid", %{conn: conn, workout: workout} do
-      conn = put conn, workout_path(conn, :update, workout), workout: @update_attrs
-      assert redirected_to(conn) == workout_path(conn, :show, workout)
+      conn = put conn, activities_exercises_workout_path(conn, :update, workout), workout: @update_attrs
+      assert redirected_to(conn) == activities_exercises_workout_path(conn, :show, workout)
 
-      conn = get conn, workout_path(conn, :show, workout)
+      conn = get conn, activities_exercises_workout_path(conn, :show, workout)
       assert html_response(conn, 200) =~ "some updated description"
     end
 
     test "renders errors when data is invalid", %{conn: conn, workout: workout} do
-      conn = put conn, workout_path(conn, :update, workout), workout: @invalid_attrs
+      conn = put conn, activities_exercises_workout_path(conn, :update, workout), workout: @invalid_attrs
       assert html_response(conn, 200) =~ "Edit Workout"
     end
   end
@@ -73,10 +73,10 @@ defmodule FitstrWeb.WorkoutControllerTest do
     setup [:create_workout]
 
     test "deletes chosen workout", %{conn: conn, workout: workout} do
-      conn = delete conn, workout_path(conn, :delete, workout)
-      assert redirected_to(conn) == workout_path(conn, :index)
+      conn = delete conn, activities_exercises_workout_path(conn, :delete, workout)
+      assert redirected_to(conn) == activities_exercises_workout_path(conn, :index)
       assert_error_sent 404, fn ->
-        get conn, workout_path(conn, :show, workout)
+        get conn, activities_exercises_workout_path(conn, :show, workout)
       end
     end
   end

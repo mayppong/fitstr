@@ -47,6 +47,16 @@ defmodule FitstrWeb.Router do
     end
   end
 
+  scope "/api/v1", FitstrWeb.API.V1, as: :api_v1 do
+    pipe_through :api
+
+    scope "/activities", Activities, as: :activities do
+      scope "/exercises", Exercises, as: :exercises do
+        resources "/movements", MovementController
+      end
+    end
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", FitstrWeb do
   #   pipe_through :api

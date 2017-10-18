@@ -53,6 +53,7 @@ defmodule FitstrWeb.Router do
     scope "/activities", Activities, as: :activities do
       scope "/exercises", Exercises, as: :exercises do
         resources "/movements", MovementController
+        resources "/workouts", WorkoutController
       end
     end
   end

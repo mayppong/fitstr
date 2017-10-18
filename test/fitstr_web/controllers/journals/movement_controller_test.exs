@@ -7,6 +7,10 @@ defmodule FitstrWeb.Journals.MovementControllerTest do
   @update_attrs %{distance: "456.7", energy: "456.7", interval: "456.7", note: "some updated note", repetition: "456.7", time: "456.7", weight: "456.7"}
   @invalid_attrs %{distance: nil, energy: nil, interval: nil, note: nil, repetition: nil, time: nil, weight: nil}
 
+  setup %{browser: %{auth: auth, guest: guest}} do
+    {:ok, %{conn: auth, guest: guest}}
+  end
+
   def fixture(:movement) do
     {:ok, movement} = Journals.create_movement(@create_attrs)
     movement

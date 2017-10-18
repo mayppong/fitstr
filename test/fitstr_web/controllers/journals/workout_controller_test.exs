@@ -7,6 +7,10 @@ defmodule FitstrWeb.Journals.WorkoutControllerTest do
   @update_attrs %{interval: "456.7", note: "some updated note", repetition: 43, round: "456.7", time: "456.7"}
   @invalid_attrs %{interval: nil, note: nil, repetition: nil, round: nil, time: nil}
 
+  setup %{browser: %{auth: auth, guest: guest}} do
+    {:ok, %{conn: auth, guest: guest}}
+  end
+
   def fixture(:workout) do
     {:ok, workout} = Journals.create_workout(@create_attrs)
     workout

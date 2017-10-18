@@ -7,6 +7,10 @@ defmodule FitstrWeb.UserControllerTest do
   @update_attrs %{email: "some updated email", handler: "some updated handler", hashed_password: "some updated hashed_password"}
   @invalid_attrs %{email: nil, handler: nil, hashed_password: nil}
 
+  setup %{browser: %{auth: auth, guest: guest}} do
+    {:ok, %{conn: auth, guest: guest}}
+  end
+
   def fixture(:user) do
     {:ok, user} = Accounts.create_user(@create_attrs)
     user

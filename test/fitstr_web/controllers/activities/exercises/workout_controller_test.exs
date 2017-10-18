@@ -7,6 +7,10 @@ defmodule FitstrWeb.Activities.Exercises.WorkoutControllerTest do
   @update_attrs %{description: "some updated description", interval: "456.7", name: "some updated name", note: "some updated note", round: 43, time: "456.7"}
   @invalid_attrs %{description: nil, interval: nil, name: nil, note: nil, round: nil, time: nil}
 
+  setup %{browser: %{auth: auth, guest: guest}} do
+    {:ok, %{conn: auth, guest: guest}}
+  end
+
   def fixture(:workout) do
     {:ok, workout} = Exercises.create_workout(@create_attrs)
     workout

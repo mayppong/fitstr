@@ -56,11 +56,12 @@ defmodule FitstrWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(Fitstr.Repo, {:shared, self()})
     end
 
-    guest = Phoenix.ConnTest.build_conn()
+    conn = Phoenix.ConnTest.build_conn()
+    guest = conn
     |> through_endpoint
-    conn = guest
+    auth = guest
     |> sign_in
-    {:ok, conn: conn, guest: guest}
+    {:ok, conn: conn, browser: %{auth: auth, guest: guest}}
   end
 
   @doc """

@@ -7,6 +7,10 @@ defmodule FitstrWeb.Activities.Exercises.MovementControllerTest do
   @update_attrs %{description: "some updated description", name: "some updated name"}
   @invalid_attrs %{description: nil, name: nil}
 
+  setup %{browser: %{auth: auth, guest: guest}} do
+    {:ok, %{conn: auth, guest: guest}}
+  end
+
   def fixture(:movement) do
     {:ok, movement} = Exercises.create_movement(@create_attrs)
     movement

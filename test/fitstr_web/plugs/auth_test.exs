@@ -3,6 +3,10 @@ defmodule FitstrWeb.Plugs.AuthTest do
   alias FitstrWeb.Plugs.Auth
   alias Fitstr.Accounts
 
+  setup %{browser: %{auth: auth, guest: guest}} do
+    {:ok, %{conn: auth, guest: guest}}
+  end
+
   test "redirect to login page if not signed in", %{guest: guest} do
     redirect = guest
     |> Auth.call(%{})

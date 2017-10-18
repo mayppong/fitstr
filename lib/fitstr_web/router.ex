@@ -58,6 +58,7 @@ defmodule FitstrWeb.Router do
     end
 
     scope "/journals", Journals, as: :journals do
+      resources "/movements", MovementController
       resources "/workouts", WorkoutController
     end
   end

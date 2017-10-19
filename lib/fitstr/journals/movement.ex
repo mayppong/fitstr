@@ -1,4 +1,9 @@
 defmodule Fitstr.Journals.Movement do
+  @moduledoc """
+  Data model for journaling movements. The movement can be journaled as part
+  of a workout by referencing the `Journals.Workout`'s id
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
   alias Fitstr.Journals.Movement

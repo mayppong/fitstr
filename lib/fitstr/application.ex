@@ -1,4 +1,8 @@
 defmodule Fitstr.Application do
+  @moduledoc """
+  Main application module for Fitstr.
+  """
+
   use Application
 
   # See https://hexdocs.pm/elixir/Application.html

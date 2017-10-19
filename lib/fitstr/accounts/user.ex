@@ -1,4 +1,11 @@
 defmodule Fitstr.Accounts.User do
+  @moduledoc """
+  Data struct for user account for the application.
+
+  Though it contains a hashed_password field, it's not being used as the
+  authentication is currently handle through Google's OAuth provider.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
   alias Fitstr.Accounts.User

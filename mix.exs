@@ -44,7 +44,8 @@ defmodule Fitstr.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:ueberauth, "~> 0.4"},
-      {:ueberauth_google, "~> 0.6"}
+      {:ueberauth_google, "~> 0.6"},
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false}
     ]
   end
 

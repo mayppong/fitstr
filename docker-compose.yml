@@ -52,3 +52,13 @@ services:
     command: "mix test"
     links:
       - postgres_test:postgres
+
+  credo:
+    build:
+      context: ./
+      dockerfile: ./deployments/Dockerfile.dev
+    image: "fitstr:dev"
+    volumes:
+      - ./:/fitstr
+    working_dir: /fitstr
+    command: "mix credo"

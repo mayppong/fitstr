@@ -5,7 +5,8 @@ defmodule FitstrWeb.AuthController do
   alias Fitstr.Accounts
 
   def new(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    Accounts.get_user_by(email: auth.info.email)
+    [email: auth.info.email]
+    |> Accounts.get_user_by()
     |> case do
       nil -> Accounts.create_user(%{email: auth.info.email})
       user -> {:ok, user}

@@ -1,0 +1,44 @@
+<h2>Listing Workouts</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Order</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Interval</th>
+      <th>Round</th>
+      <th>Time</th>
+      <th>Distance</th>
+      <th>Energy</th>
+      <th>Repetition</th>
+      <th>Weight</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for workout <- @workouts do %>
+    <tr>
+      <td><%= workout.order %></td>
+      <td><%= workout.name %></td>
+      <td><%= workout.description %></td>
+      <td><%= workout.interval %></td>
+      <td><%= workout.round %></td>
+      <td><%= workout.time %></td>
+      <td><%= workout.distance %></td>
+      <td><%= workout.energy %></td>
+      <td><%= workout.repetition %></td>
+      <td><%= workout.weight %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: activities_workouts_workout_path(@conn, :show, workout), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: activities_workouts_workout_path(@conn, :edit, workout), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: activities_workouts_workout_path(@conn, :delete, workout), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Workout", to: activities_workouts_workout_path(@conn, :new) %></span>

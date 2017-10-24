@@ -1,0 +1,18 @@
+<h2>Show Movement</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @movement.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @movement.description %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: activities_workouts_movement_path(@conn, :edit, @movement) %></span>
+<span><%= link "Back", to: activities_workouts_movement_path(@conn, :index) %></span>

@@ -1,0 +1,58 @@
+<h2>Show Workout</h2>
+
+<ul>
+
+  <li>
+    <strong>Order:</strong>
+    <%= @workout.order %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @workout.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @workout.description %>
+  </li>
+
+  <li>
+    <strong>Interval:</strong>
+    <%= @workout.interval %>
+  </li>
+
+  <li>
+    <strong>Round:</strong>
+    <%= @workout.round %>
+  </li>
+
+  <li>
+    <strong>Time:</strong>
+    <%= @workout.time %>
+  </li>
+
+  <li>
+    <strong>Distance:</strong>
+    <%= @workout.distance %>
+  </li>
+
+  <li>
+    <strong>Energy:</strong>
+    <%= @workout.energy %>
+  </li>
+
+  <li>
+    <strong>Repetition:</strong>
+    <%= @workout.repetition %>
+  </li>
+
+  <li>
+    <strong>Weight:</strong>
+    <%= @workout.weight %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: activities_workouts_workout_path(@conn, :edit, @workout) %></span>
+<span><%= link "Back", to: activities_workouts_workout_path(@conn, :index) %></span>

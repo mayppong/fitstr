@@ -36,14 +36,16 @@ defmodule FitstrWeb.Router do
     resources "/users", UserController
 
     scope "/activities", Activities, as: :activities do
-      scope "/exercises", Exercises, as: :exercises do
+      scope "/workouts", Workouts, as: :workouts do
         resources "/movements", MovementController
         resources "/workouts", WorkoutController
       end
     end
     scope "/journals", Journals, as: :journals do
-      resources "/movements", MovementController
-      resources "/workouts", WorkoutController
+      scope "/workouts", Workouts, as: :workouts do
+        resources "/movements", MovementController
+        resources "/workouts", WorkoutController
+      end
     end
   end
 
@@ -51,15 +53,17 @@ defmodule FitstrWeb.Router do
     pipe_through :api
 
     scope "/activities", Activities, as: :activities do
-      scope "/exercises", Exercises, as: :exercises do
+      scope "/workouts", Workouts, as: :workouts do
         resources "/movements", MovementController
         resources "/workouts", WorkoutController
       end
     end
 
     scope "/journals", Journals, as: :journals do
-      resources "/movements", MovementController
-      resources "/workouts", WorkoutController
+      scope "/workouts", Workouts, as: :workouts do
+        resources "/movements", MovementController
+        resources "/workouts", WorkoutController
+      end
     end
   end
 

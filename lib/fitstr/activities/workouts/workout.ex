@@ -1,4 +1,8 @@
 defmodule Fitstr.Activities.Workouts.Workout do
+  @docmodule """
+  Data model for creating a workout to journal.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
   alias Fitstr.Activities.Workouts.Workout

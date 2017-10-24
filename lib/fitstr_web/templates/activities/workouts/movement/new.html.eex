@@ -1,0 +1,5 @@
+<h2>New Movement</h2>
+
+<%= render "form.html", Map.put(assigns, :action, activities_workouts_movement_path(@conn, :create)) %>
+
+<span><%= link "Back", to: activities_workouts_movement_path(@conn, :index) %></span>

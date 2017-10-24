@@ -1,0 +1,40 @@
+<h2>Listing Journal workouts</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Interval</th>
+      <th>Round</th>
+      <th>Time</th>
+      <th>Distance</th>
+      <th>Energy</th>
+      <th>Repetition</th>
+      <th>Weight</th>
+      <th>Note</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for workout <- @journal_workouts do %>
+    <tr>
+      <td><%= workout.interval %></td>
+      <td><%= workout.round %></td>
+      <td><%= workout.time %></td>
+      <td><%= workout.distance %></td>
+      <td><%= workout.energy %></td>
+      <td><%= workout.repetition %></td>
+      <td><%= workout.weight %></td>
+      <td><%= workout.note %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: journals_workouts_workout_path(@conn, :show, workout), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: journals_workouts_workout_path(@conn, :edit, workout), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: journals_workouts_workout_path(@conn, :delete, workout), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Workout", to: journals_workouts_workout_path(@conn, :new) %></span>

@@ -1,5 +1,0 @@
-<h2>New Movement</h2>
-
-<%= render "form.html", Map.put(assigns, :action, journals_movement_path(@conn, :create)) %>
-
-<span><%= link "Back", to: journals_movement_path(@conn, :index) %></span>

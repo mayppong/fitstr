@@ -1,5 +1,5 @@
 defmodule Fitstr.Activities.Workouts.Workout do
-  @docmodule """
+  @moduledoc """
   Data model for creating a workout to journal.
   """
 

@@ -16,6 +16,7 @@
       <header class="header">
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
+            <li><%= link "Home", to: page_path(@conn, :index), class: "button" %></li>
             <%= if @conn.assigns[:current_user] do %>
               <li><%= link "Sign out", to: auth_path(@conn, :delete), class: "button alert" %></li>
             <% else %>

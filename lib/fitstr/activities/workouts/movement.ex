@@ -20,7 +20,7 @@ defmodule Fitstr.Activities.Workouts.Movement do
   @doc false
   def changeset(%Movement{} = movement, attrs) do
     movement
-    |> cast(attrs, [:name, :description])
-    |> validate_required([:name, :description])
+    |> cast(attrs, [:name, :description, :parent_id])
+    |> validate_required([:name])
   end
 end

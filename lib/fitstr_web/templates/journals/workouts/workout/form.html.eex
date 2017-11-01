@@ -6,6 +6,12 @@
   <% end %>
 
   <div class="form-group">
+    <%= label f, :movement_id, class: "control-label" %>
+    <%= select f, :movement_id, movements(), class: "form-control" %>
+    <%= error_tag f, :movement_id %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :interval, class: "control-label" %>
     <%= number_input f, :interval, step: "any", class: "form-control" %>
     <%= error_tag f, :interval %>

@@ -37,4 +37,4 @@
   </tbody>
 </table>
 
-<span><%= link "New Workout", to: journals_workouts_workout_path(@conn, :new) %></span>
+<span><%= link "New Workout", to: journals_workouts_workout_path(@conn, :new), class: "btn btn-primary" %></span>

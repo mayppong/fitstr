@@ -6,11 +6,35 @@ defmodule FitstrWeb.API.V1.Journals.Workouts.WorkoutControllerTest do
 
   @create_attrs %{distance: "120.5", energy: "120.5", interval: "120.5", note: "some note", repetition: "120.5", round: "120.5", time: "120.5", weight: "120.5"}
   @update_attrs %{distance: "456.7", energy: "456.7", interval: "456.7", note: "some updated note", repetition: "456.7", round: "456.7", time: "456.7", weight: "456.7"}
-  @invalid_attrs %{distance: nil, energy: nil, interval: nil, note: nil, repetition: nil, round: nil, time: nil, weight: nil}
+  @invalid_attrs %{user_id: nil, distance: nil, energy: nil, interval: nil, note: nil, repetition: nil, round: nil, time: nil, weight: nil}
 
-  def fixture(:workout) do
-    {:ok, workout} = Workouts.create_workout(@create_attrs)
+  def fixture(model, attrs \\ %{})
+  def fixture(:workout, attrs) do
+    user = fixture(:user)
+    movement = fixture(:movement)
+    attrs =
+      attrs
+      |> Map.put(:user_id, user.id)
+      |> Map.put(:movement_id, movement.id)
+      |> Enum.into(@create_attrs)
+    {:ok, workout} = Workouts.create_workout(attrs)
     workout
+  end
+
+  def fixture(:movement, attrs) do
+    {:ok, movement} =
+      attrs
+      |> Enum.into(%{name: "some move"})
+      |> Fitstr.Activities.Workouts.create_movement()
+    movement
+  end
+
+  def fixture(:user, attrs) do
+    {:ok, user} =
+      attrs
+      |> Enum.into(%{email: "some email", handler: "some handler"})
+      |> Fitstr.Accounts.create_user()
+    user
   end
 
   setup %{conn: conn} do
@@ -26,7 +50,12 @@ defmodule FitstrWeb.API.V1.Journals.Workouts.WorkoutControllerTest do
 
   describe "create workout" do
     test "renders workout when data is valid", %{conn: conn} do
-      conn = post conn, api_v1_journals_workouts_workout_path(conn, :create), workout: @create_attrs
+      user = fixture(:user)
+      movement = fixture(:movement)
+      attrs = @create_attrs
+      |> Map.put(:user_id, user.id)
+      |> Map.put(:movement_id, movement.id)
+      conn = post conn, api_v1_journals_workouts_workout_path(conn, :create), workout: attrs
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get conn, api_v1_journals_workouts_workout_path(conn, :show, id)

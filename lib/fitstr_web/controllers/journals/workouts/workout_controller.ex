@@ -15,6 +15,8 @@ defmodule FitstrWeb.Journals.Workouts.WorkoutController do
   end
 
   def create(conn, %{"workout" => workout_params}) do
+    user = conn.assigns[:current_user]
+    workout_params = workout_params |> Map.put("user_id", user.id)
     case Workouts.create_workout(workout_params) do
       {:ok, workout} ->
         conn

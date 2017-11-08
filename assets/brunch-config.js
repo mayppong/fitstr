@@ -57,6 +57,12 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    styles: {
+      vuetify: ["dist/vuetify.css"]
+    },
+    aliases: {
+      vue: "vue/dist/vue.common.js"
+    }
   }
 };

@@ -8,6 +8,7 @@
     <meta name="author" content="">
 
     <title>Hello Fitstr!</title>
+    <link rel="manifest" href="<%= static_path(@conn, "/manifest.json") %>">
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>

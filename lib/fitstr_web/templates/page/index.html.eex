@@ -3,8 +3,13 @@
   <p class="lead">Your friendliest fitness companion</p>
 </div>
 
-<div class="row button-action">
-  <div class="col-lg-6">
-    <%= link "Log a move", to: journals_workouts_workout_path(@conn, :new), class: "btn btn-primary" %>
-  </div>
-</div>
+<v-btn
+  fixed
+  bottom
+  color="pink"
+  dark
+  fab
+  href="<%= journals_workouts_workout_path(@conn, :new) %>"
+  right>
+  <v-icon>add</v-icon>
+</v-btn>

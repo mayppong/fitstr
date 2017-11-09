@@ -1,0 +1,6 @@
+{
+  "name": "Fitstr",
+  "short_name": "Fitstr",
+  "start_url": "/",
+  "display": "standalone"
+}

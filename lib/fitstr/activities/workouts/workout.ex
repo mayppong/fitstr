@@ -9,20 +9,23 @@ defmodule Fitstr.Activities.Workouts.Workout do
 
 
   schema "workouts" do
+    field :name, :string
     field :description, :string
+    field :order, :integer
+
     field :distance, :decimal
     field :energy, :decimal
     field :interval, :decimal
-    field :name, :string
-    field :order, :integer
     field :repetition, :decimal
     field :round, :decimal
     field :time, :decimal
     field :weight, :decimal
-    field :parent_id, :id
-    field :workout_id, :id
-    field :movement_id, :id
-    field :creator_id, :id
+
+    belongs_to :parent, __MODULE__
+
+    belongs_to :workout, __MODULE__
+    belongs_to :movement, Fitstr.Activities.Workouts.Movement
+    belongs_to :creator, Fitstr.Accounts.User
 
     timestamps()
   end
@@ -30,7 +33,8 @@ defmodule Fitstr.Activities.Workouts.Workout do
   @doc false
   def changeset(%Workout{} = workout, attrs) do
     workout
-    |> cast(attrs, [:order, :name, :description, :interval, :round, :time, :distance, :energy, :repetition, :weight])
-    |> validate_required([:order, :name, :description, :interval, :round, :time, :distance, :energy, :repetition, :weight])
+    |> cast(attrs, [:parent_id, :workout_id, :movement_id, :creator_id,
+      :order, :name, :description,
+      :interval, :round, :time, :distance, :energy, :repetition, :weight])
   end
 end

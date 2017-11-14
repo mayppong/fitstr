@@ -1,0 +1,19 @@
+FROM alpine:3.6
+
+ARG VERSION 0.0.0
+ENV MIX_ENV prod
+ENV APP fitstr
+ENV APP_PATH apps/$APP/rel/$APP
+ENV PORT 4000
+
+RUN apk --update add bash && \
+  rm -rf /var/cache/apk/*
+
+WORKDIR /$APP
+COPY $APP_PATH/releases/$VERSION/$APP.tar.gz ./
+RUN tar -xvzf $APP.tar.gz
+RUN rm $APP.tar.gz
+
+EXPOSE $PORT
+ENTRYPOINT ./bin/$APP
+CMD ["./bin/app", "foreground"]

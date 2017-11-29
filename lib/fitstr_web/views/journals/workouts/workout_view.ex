@@ -5,8 +5,10 @@ defmodule FitstrWeb.Journals.Workouts.WorkoutView do
   alias Fitstr.Repo
 
   def movements() do
-    Movement
+    moves = Movement
     |> Repo.all
-    |> Enum.map(&{&1.name, &1.id})
+    |> Enum.map(&("'#{&1.name}'"))
+    |> Enum.join(", ")
+    "[#{moves}]"
   end
 end

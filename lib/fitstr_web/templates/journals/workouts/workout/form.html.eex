@@ -1,3 +1,5 @@
+<v-card>
+<v-card-text>
 <%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
@@ -5,61 +7,135 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= label f, :movement_id, class: "control-label" %>
-    <%= select f, :movement_id, movements(), class: "form-control" %>
-    <%= error_tag f, :movement_id %>
-  </div>
+  <v-container fluid>
+    <v-layout row>
+      <v-flex xs12>
+        <v-select
+          name="workout[movement]"
+          :items="<%= movements() %>"
+          label="Movement"
+          single-line
+          bottom
+        ></v-select>
+      </v-flex>
+    </v-layout>
 
-  <div class="form-group">
-    <%= label f, :interval, class: "control-label" %>
-    <%= number_input f, :interval, step: "any", class: "form-control" %>
-    <%= error_tag f, :interval %>
-  </div>
+    <v-layout row>
+      <%= error_tag f, :interval %>
+      <%= error_tag f, :round %>
+      <%= error_tag f, :time %>
+      <%= error_tag f, :distance %>
+      <%= error_tag f, :energy %>
+      <%= error_tag f, :repetition %>
+      <%= error_tag f, :weight %>
+    </v-layout row>
 
-  <div class="form-group">
-    <%= label f, :round, class: "control-label" %>
-    <%= number_input f, :round, step: "any", class: "form-control" %>
-    <%= error_tag f, :round %>
-  </div>
+    <v-layout row>
+      <v-flex xs4>
+        <v-subheader>Interval</v-subheader>
+      </v-flex>
+      <v-flex xs8>
+        <v-text-field class="pl-2"
+          name="workout[interval]"
+        ></v-text-field>
+      </v-flex>
+    </v-layout>
 
-  <div class="form-group">
-    <%= label f, :time, class: "control-label" %>
-    <%= number_input f, :time, step: "any", class: "form-control" %>
-    <%= error_tag f, :time %>
-  </div>
+    <v-layout row>
+      <v-flex xs4>
+        <v-subheader>Round</v-subheader>
+      </v-flex>
+      <v-flex xs8>
+        <v-text-field class="pl-2"
+          name="workout[round]"
+        ></v-text-field>
+      </v-flex>
+    </v-layout>
 
-  <div class="form-group">
-    <%= label f, :distance, class: "control-label" %>
-    <%= number_input f, :distance, step: "any", class: "form-control" %>
-    <%= error_tag f, :distance %>
-  </div>
+    <v-layout row>
+      <v-flex xs4>
+        <v-subheader>Time</v-subheader>
+      </v-flex>
+      <v-flex xs6>
+        <v-text-field class="pl-2"
+          name="workout[time]"
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs2>
+        <v-subheader>seconds</v-subheader>
+      </v-flex>
+    </v-layout>
 
-  <div class="form-group">
-    <%= label f, :energy, class: "control-label" %>
-    <%= number_input f, :energy, step: "any", class: "form-control" %>
-    <%= error_tag f, :energy %>
-  </div>
+    <v-layout row>
+      <v-flex xs4>
+        <v-subheader>Distance</v-subheader>
+      </v-flex>
+      <v-flex xs6>
+        <v-text-field class="pl-2"
+          name="workout[distance]"
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs2>
+        <v-subheader>meters</v-subheader>
+      </v-flex>
+    </v-layout>
 
-  <div class="form-group">
-    <%= label f, :repetition, class: "control-label" %>
-    <%= number_input f, :repetition, step: "any", class: "form-control" %>
-    <%= error_tag f, :repetition %>
-  </div>
+    <v-layout row>
+      <v-flex xs4>
+        <v-subheader>Energy</v-subheader>
+      </v-flex>
+      <v-flex xs6>
+        <v-text-field class="pl-2"
+          name="workout[energy]"
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs2>
+        <v-subheader>calories</v-subheader>
+      </v-flex>
+    </v-layout>
 
-  <div class="form-group">
-    <%= label f, :weight, class: "control-label" %>
-    <%= number_input f, :weight, step: "any", class: "form-control" %>
-    <%= error_tag f, :weight %>
-  </div>
+    <v-layout row>
+      <v-flex xs4>
+        <v-subheader>Repetition</v-subheader>
+      </v-flex>
+      <v-flex xs8>
+        <v-text-field class="pl-2"
+          name="workout[repetition]"
+        ></v-text-field>
+      </v-flex>
+    </v-layout>
 
-  <div class="form-group">
-    <%= label f, :note, class: "control-label" %>
-    <%= textarea f, :note, class: "form-control" %>
-    <%= error_tag f, :note %>
-  </div>
+    <v-layout row>
+      <v-flex xs4>
+        <v-subheader>Weight</v-subheader>
+      </v-flex>
+      <v-flex xs6>
+        <v-text-field class="pl-2"
+          name="workout[weight]"
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs2>
+        <v-subheader>lbs</v-subheader>
+      </v-flex>
+    </v-layout>
 
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
-  </div>
+    <v-layout row>
+      <v-flex xs12>
+        <v-text-field
+          name="workout[note]"
+          label="Note"
+          multi-line
+          ></v-text-field>
+        <%= error_tag f, :note %>
+      </v-flex>
+    </v-layout>
+  </v-container>
+
+  <v-flex>
+    <div class="form-group">
+      <%= submit "Submit", class: "btn btn-primary" %>
+    </div>
+  </v-flex>
 <% end %>
+</v-card-text>
+</v-card>

@@ -16,7 +16,7 @@ services:
 
   node:
     image: "node:8-alpine"
-    command: "./node_modules/.bin/brunch build"
+    command: "./node_modules/.bin/brunch watch"
     volumes:
       - ./:/fitstr
     working_dir: /fitstr/assets

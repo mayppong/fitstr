@@ -1,3 +1,5 @@
+<v-card>
+<v-card-text>
 <%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
@@ -5,61 +7,37 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= label f, :movement_id, class: "control-label" %>
-    <%= select f, :movement_id, movements(), class: "form-control" %>
-    <%= error_tag f, :movement_id %>
-  </div>
+  <v-container fluid>
+    <v-expansion-panel popout>
+      <v-expansion-panel-content>
+        <div slot="header">Movement</div>
+        <v-card>
+          <v-card-text>
+            <%= render "_form.movement.html", f: f %>
+          </v-card-text>
+        </v-card>
 
-  <div class="form-group">
-    <%= label f, :interval, class: "control-label" %>
-    <%= number_input f, :interval, step: "any", class: "form-control" %>
-    <%= error_tag f, :interval %>
-  </div>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
 
-  <div class="form-group">
-    <%= label f, :round, class: "control-label" %>
-    <%= number_input f, :round, step: "any", class: "form-control" %>
-    <%= error_tag f, :round %>
-  </div>
+    <v-layout row>
+      <v-flex xs12>
+        <v-text-field
+          name="workout[note]"
+          label="Note"
+          multi-line
+          ></v-text-field>
+        <%= error_tag f, :note %>
+      </v-flex>
+    </v-layout>
 
-  <div class="form-group">
-    <%= label f, :time, class: "control-label" %>
-    <%= number_input f, :time, step: "any", class: "form-control" %>
-    <%= error_tag f, :time %>
-  </div>
+  </v-container>
 
-  <div class="form-group">
-    <%= label f, :distance, class: "control-label" %>
-    <%= number_input f, :distance, step: "any", class: "form-control" %>
-    <%= error_tag f, :distance %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :energy, class: "control-label" %>
-    <%= number_input f, :energy, step: "any", class: "form-control" %>
-    <%= error_tag f, :energy %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :repetition, class: "control-label" %>
-    <%= number_input f, :repetition, step: "any", class: "form-control" %>
-    <%= error_tag f, :repetition %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :weight, class: "control-label" %>
-    <%= number_input f, :weight, step: "any", class: "form-control" %>
-    <%= error_tag f, :weight %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :note, class: "control-label" %>
-    <%= textarea f, :note, class: "form-control" %>
-    <%= error_tag f, :note %>
-  </div>
-
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
-  </div>
+  <v-flex>
+    <div class="form-group">
+      <%= submit "Submit", class: "btn btn-primary" %>
+    </div>
+  </v-flex>
 <% end %>
+</v-card-text>
+</v-card>

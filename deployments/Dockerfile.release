@@ -1,0 +1,18 @@
+FROM alpine:3.6
+
+ARG VERSION=0.0.0
+ENV APP fitstr
+ENV MIX_ENV prod
+ENV PORT 4000
+
+RUN apk --update add bash openssl && \
+  rm -rf /var/cache/apk/*
+
+WORKDIR /${APP}
+COPY ./_build/${MIX_ENV}/rel/${APP}/releases/${VERSION}/${APP}.tar.gz ./
+RUN tar xfz ${APP}.tar.gz
+RUN rm ${APP}.tar.gz
+
+EXPOSE ${PORT}
+ENTRYPOINT ["./bin/fitstr"]
+CMD ["foreground"]

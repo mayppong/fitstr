@@ -45,7 +45,7 @@ defmodule FitstrWeb.ConnCase do
         |> FitstrWeb.ConnCase.sign_in(user)
       end
 
-      defoverridable [ through_endpoint: 1, sign_in: 2 ]
+      defoverridable [through_endpoint: 1, sign_in: 2]
     end
   end
 

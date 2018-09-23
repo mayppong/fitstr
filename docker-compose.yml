@@ -15,7 +15,7 @@ services:
       POSTGRES_PASSWORD: "postgres"
 
   node:
-    image: "node:8-alpine"
+    image: node:10-alpine
     command: "./node_modules/.bin/brunch build"
     volumes:
       - ./:/fitstr
